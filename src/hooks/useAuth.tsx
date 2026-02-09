@@ -23,7 +23,6 @@ interface AuthContextType {
   roles: AppRole[];
   loading: boolean;
   signIn: (cnic: string, password: string) => Promise<{ error: Error | null; user: AuthUser | null }>;
-  signInApplicant: (cnic: string, password: string) => Promise<{ error: Error | null; user: AuthUser | null }>;
   signOut: () => Promise<void>;
   refreshUser: () => Promise<void>;
   hasRole: (role: AppRole) => boolean;
@@ -87,21 +86,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const signInApplicant = async (cnic: string, password: string) => {
-    try {
-      const data = await apiPost("/api/auth/applicant-login", { cnic, password });
-      setToken(data.token);
-      setUser(data.user as AuthUser);
-      setRoles((data.user.roles as AppRole[]) || []);
-      return { error: null, user: data.user as AuthUser };
-    } catch (error) {
-      setToken(null);
-      setUser(null);
-      setRoles([]);
-      return { error: error as Error, user: null };
-    }
-  };
-
   const signOut = async () => {
     setToken(null);
     setRoles([]);
@@ -111,7 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const hasRole = (role: AppRole) => roles.includes("super_admin") || roles.includes(role);
 
   return (
-    <AuthContext.Provider value={{ user, roles, loading, signIn, signInApplicant, signOut, refreshUser, hasRole }}>
+    <AuthContext.Provider value={{ user, roles, loading, signIn, signOut, refreshUser, hasRole }}>
       {children}
     </AuthContext.Provider>
   );

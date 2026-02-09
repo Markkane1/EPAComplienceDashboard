@@ -106,57 +106,6 @@ router.post("/login", authLimiter, async (req, res) => {
   });
 });
 
-router.post("/applicant-login", authLimiter, async (req, res) => {
-  const { cnic, password } = req.body || {};
-  if (!cnic || !password) {
-    return res.status(400).json({ message: "CNIC and password are required." });
-  }
-
-  const normalizedCnic = String(cnic).trim();
-  const user = await User.findOne({ cnic: normalizedCnic });
-  if (!user) {
-    return res.status(401).json({ message: "Invalid credentials." });
-  }
-
-  const valid = await bcrypt.compare(password, user.password_hash);
-  if (!valid) {
-    return res.status(401).json({ message: "Invalid credentials." });
-  }
-
-  const roles = user.roles || [];
-  const isApplicantOnly =
-    roles.includes("applicant") &&
-    !roles.includes("admin") &&
-    !roles.includes("super_admin") &&
-    !roles.includes("registrar") &&
-    !roles.includes("hearing_officer");
-
-  if (!isApplicantOnly) {
-    return res.status(403).json({ message: "Applicant access only." });
-  }
-  if (user.email && !user.email_verified) {
-    return res.status(403).json({ message: "Please verify your email first." });
-  }
-
-  const token = jwt.sign({ userId: user._id.toString() }, config.jwtSecret, {
-    expiresIn: "7d",
-  });
-
-  await logAudit({
-    action: "auth.login.applicant",
-    entityType: "user",
-    entityId: user._id.toString(),
-    user,
-    req,
-    details: { cnic: user.cnic, email: user.email || null },
-  });
-
-  return res.json({
-    token,
-    user: mapUser(user),
-  });
-});
-
 router.get("/magic", tokenLimiter, async (req, res) => {
   const { token } = req.query;
   if (!token) {

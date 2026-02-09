@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { applicantMagicLinkSchema, ApplicantMagicLinkData } from "@/lib/validations";
@@ -26,6 +26,7 @@ const ApplicantLogin = () => {
   const [captchaInput, setCaptchaInput] = useState("");
   const [requestSent, setRequestSent] = useState(false);
   const [requestedEmail, setRequestedEmail] = useState("");
+  const [cooldown, setCooldown] = useState(0);
 
   const form = useForm<ApplicantMagicLinkData>({
     resolver: zodResolver(applicantMagicLinkSchema),
@@ -50,6 +51,9 @@ const ApplicantLogin = () => {
       );
       setRequestSent(true);
       setRequestedEmail(data.email);
+      setCooldown(60);
+      setCaptcha(createCaptcha());
+      setCaptchaInput("");
       toast.success("Magic link sent. Check your inbox.");
     } catch (error: unknown) {
       console.error("Applicant login error:", error);
@@ -59,6 +63,14 @@ const ApplicantLogin = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const timer = setTimeout(() => {
+      setCooldown((prev) => Math.max(prev - 1, 0));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [cooldown]);
 
   return (
     <PublicLayout>
@@ -116,10 +128,21 @@ const ApplicantLogin = () => {
                     onChange={(e) => setCaptchaInput(e.target.value)}
                   />
                 </div>
-                <Button type="submit" className="w-full" disabled={isLoading}>
+                <Button type="submit" className="w-full" disabled={isLoading || cooldown > 0}>
                   {isLoading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                  Send Magic Link
+                  {cooldown > 0 ? `Please wait ${cooldown}s` : "Send Magic Link"}
                 </Button>
+                {requestSent && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    disabled={isLoading || cooldown > 0}
+                    onClick={() => form.handleSubmit(onSubmit)()}
+                  >
+                    Resend Magic Link
+                  </Button>
+                )}
               </form>
             </Form>
           </CardContent>
