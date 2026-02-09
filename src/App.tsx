@@ -2,13 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import Index from "./pages/Index";
 import Track from "./pages/Track";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import MyApplications from "./pages/MyApplications";
 import ApplicantLogin from "./pages/ApplicantLogin";
 import VerifyEmail from "./pages/VerifyEmail";
@@ -39,7 +38,7 @@ const App = () => (
             <Route path="/track" element={<Track />} />
             <Route path="/login" element={<Login />} />
             <Route path="/applicant-login" element={<ApplicantLogin />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/signup" element={<Navigate to="/applicant-login" replace />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/magic-login" element={<MagicLogin />} />
             <Route

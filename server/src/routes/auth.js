@@ -59,6 +59,21 @@ const tokenLimiter = rateLimit({
   keyGenerator: (req) => req.ip,
 });
 
+router.post("/applicant-login", async (req, res) => {
+  await logAudit({
+    action: "auth.applicant_login_blocked",
+    entityType: "auth",
+    req,
+    details: {
+      cnic: req.body?.cnic || null,
+      email: req.body?.email || null,
+    },
+  });
+  return res.status(410).json({
+    message: "Applicant login is disabled. Request a magic link instead.",
+  });
+});
+
 router.post("/login", authLimiter, async (req, res) => {
   const { cnic, password } = req.body || {};
   if (!cnic || !password) {
@@ -172,7 +187,21 @@ router.post("/magic/request", authLimiter, async (req, res) => {
   return res.json({ success: true });
 });
 
-router.post("/signup", authLimiter, async (req, res) => {
+router.post("/signup", async (req, res) => {
+  await logAudit({
+    action: "auth.signup_blocked",
+    entityType: "auth",
+    req,
+    details: {
+      email: req.body?.email || null,
+    },
+  });
+  return res.status(410).json({
+    message: "Applicant signup is disabled. Submit an application to receive a magic link.",
+  });
+});
+
+router.post("/signup-legacy", authLimiter, async (req, res) => {
   const { email, password, full_name, cnic } = req.body || {};
   const normalizedCnic = String(cnic || "").trim();
   if (!normalizedCnic || !password) {
