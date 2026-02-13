@@ -13,21 +13,17 @@ git clone <YOUR_GIT_URL>
 # Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the frontend dependencies.
-npm i
+# Step 3: Install dependencies.
+npm install
 
-# Step 4: Install backend dependencies.
-cd server
-npm i
-cd ..
-
-# Step 5: Start the API server (requires MongoDB running).
-cd server
+# Step 4: Start both web and API dev servers (requires MongoDB running).
 npm run dev
-cd ..
 
-# Step 6: Start the frontend dev server.
-npm run dev
+# Step 5: Build the web app.
+npm run build
+
+# Step 6: Start the API server only.
+npm run start:api
 ```
 
 **Edit a file directly in GitHub**

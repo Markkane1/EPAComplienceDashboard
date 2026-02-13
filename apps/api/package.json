@@ -1,0 +1,30 @@
+{
+  "name": "punjab-compliance-backend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/main.js",
+    "start": "node src/main.js",
+    "lint": "node -e \"process.exit(0)\"",
+    "seed:admin-password": "node scripts/seed-admin-password.js",
+    "migrate:indexes": "node scripts/migrate-indexes.js",
+    "migrate:district": "node scripts/migrate-district.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.6",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.16",
+    "pdfkit": "^0.16.0"
+  },
+  "devDependencies": {
+    "@repo/shared": "file:../../packages/shared"
+  }
+}
