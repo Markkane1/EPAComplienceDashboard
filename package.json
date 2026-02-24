@@ -9,7 +9,11 @@
     "dev:web": "npm --prefix apps/web run dev",
     "dev:api": "npm --prefix apps/api run dev",
     "build": "npm --prefix apps/web run build",
+    "build:staging": "npm --prefix apps/web run build -- --mode staging",
     "start:api": "npm --prefix apps/api run start",
+    "start:staging:api": "npm --prefix apps/api run start",
+    "preview:staging:web": "npm --prefix apps/web run preview -- --host 0.0.0.0 --port 8080",
+    "setup:staging": "node ./scripts/setup-staging-env.mjs",
     "lint:web": "npm --prefix apps/web run lint",
     "lint:api": "npm --prefix apps/api run lint"
   },

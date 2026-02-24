@@ -1,53 +1,38 @@
-**Use your preferred IDE**
+# EPA Compliance Dashboard
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Monorepo containing:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- `apps/web`: Vite + React frontend
+- `apps/api`: Express + MongoDB backend
 
-Follow these steps:
+## Local Development
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install dependencies.
+```bash
 npm install
-
-# Step 4: Start both web and API dev servers (requires MongoDB running).
 npm run dev
-
-# Step 5: Build the web app.
-npm run build
-
-# Step 6: Start the API server only.
-npm run start:api
 ```
 
-**Edit a file directly in GitHub**
+Useful commands:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- `npm run dev:web`
+- `npm run dev:api`
+- `npm run build`
+- `npm run start:api`
 
-**Use GitHub Codespaces**
+## Staging
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Staging setup instructions are in [STAGING_SETUP.md](./STAGING_SETUP.md).
 
-## What technologies are used for this project?
+Quick commands:
 
-This project is built with:
+```bash
+npm run setup:staging
+npm run build:staging
+npm run start:staging:api
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-- Express
-- MongoDB
+## Security Notes
+
+- Never commit real secrets.
+- Use `apps/api/.env.staging.example` and `apps/web/.env.staging.example` as templates.
+- Configure Resend via `RESEND_API_KEY`, `EMAIL_FROM`, and `EMAIL_FROM_NAME` in API env.

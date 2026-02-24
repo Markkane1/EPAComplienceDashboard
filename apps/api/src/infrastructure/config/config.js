@@ -80,10 +80,7 @@ export const config = {
   adminPassword: validateAdminPassword(),
   adminName: process.env.ADMIN_NAME || "System Admin",
   adminCnic: process.env.ADMIN_CNIC || "",
-  smtpHost: process.env.SMTP_HOST || "",
-  smtpPort: Number(process.env.SMTP_PORT || 587),
-  smtpSecure: process.env.SMTP_SECURE === "true",
-  smtpUser: process.env.SMTP_USER || "",
-  smtpPass: process.env.SMTP_PASS || "",
-  smtpFrom: process.env.SMTP_FROM || "no-reply@example.com",
+  resendApiKey: process.env.RESEND_API_KEY || "",
+  emailFrom: process.env.EMAIL_FROM || "onboarding@resend.dev",
+  emailFromName: process.env.EMAIL_FROM_NAME || "EPA Compliance Dashboard",
 };

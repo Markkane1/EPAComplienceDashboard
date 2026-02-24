@@ -56,17 +56,12 @@ APP_BASE_URL="https://app.$DOMAIN"
 PUBLIC_BASE_URL="https://api.$DOMAIN"
 
 echo ""
-echo "📧 Email Configuration (Optional - leave blank to disable)"
-read -p "SMTP Host (e.g., smtp.gmail.com): " SMTP_HOST
-read -p "SMTP Port (default: 587): " SMTP_PORT
-SMTP_PORT=${SMTP_PORT:-587}
-read -p "SMTP Username/Email: " SMTP_USER
-read -sp "SMTP Password: " SMTP_PASS
-echo ""
-read -p "Sender Email (e.g., noreply@$DOMAIN): " SMTP_FROM
-SMTP_FROM=${SMTP_FROM:-"noreply@$DOMAIN"}
-read -p "SMTP Secure (true/false, default: true): " SMTP_SECURE
-SMTP_SECURE=${SMTP_SECURE:-true}
+echo "📧 Email Configuration (Resend)"
+read -p "Resend API Key (re_...): " RESEND_API_KEY
+read -p "Sender Email (default: onboarding@resend.dev): " EMAIL_FROM
+EMAIL_FROM=${EMAIL_FROM:-"onboarding@resend.dev"}
+read -p "Sender Name (default: EPA Compliance Dashboard): " EMAIL_FROM_NAME
+EMAIL_FROM_NAME=${EMAIL_FROM_NAME:-"EPA Compliance Dashboard"}
 
 echo ""
 echo "📦 MongoDB Configuration"
@@ -123,13 +118,10 @@ APP_BASE_URL=$APP_BASE_URL
 UPLOAD_DIR=./uploads
 SECURE_UPLOADS_DIR=../secure-uploads
 
-# Email Configuration
-SMTP_HOST=$SMTP_HOST
-SMTP_PORT=$SMTP_PORT
-SMTP_SECURE=$SMTP_SECURE
-SMTP_USER=$SMTP_USER
-SMTP_PASS=$SMTP_PASS
-SMTP_FROM=$SMTP_FROM
+# Email Configuration (Resend)
+RESEND_API_KEY=$RESEND_API_KEY
+EMAIL_FROM=$EMAIL_FROM
+EMAIL_FROM_NAME=$EMAIL_FROM_NAME
 EOF
 
 echo -e "${GREEN}✓ .env file created${NC}"
@@ -200,7 +192,7 @@ Check for any startup errors or warnings
 ☐ ADMIN_PASSWORD is secure and changed after first login
 ☐ CORS_ORIGIN contains ONLY your production domains
 ☐ MONGO_URI uses TLS connection
-☐ Email credentials are secure
+☐ Resend API key and sender are configured
 ☐ .env file is NOT committed to version control
 ☐ HTTPS/TLS certificates installed
 ☐ Firewall configured (only ports 80, 443, 22)
