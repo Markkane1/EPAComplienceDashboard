@@ -6,6 +6,10 @@ dotenv.config();
 const rootDir = process.cwd();
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = process.env.NODE_ENV !== 'production';
+const parseBoolean = (value, fallback) => {
+  if (value === undefined) return fallback;
+  return String(value).toLowerCase() === "true";
+};
 
 // Validate JWT Secret
 const validateJwtSecret = () => {
@@ -69,6 +73,7 @@ if (isProd && !corsOrigins.length) {
 export const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 4000,
+  enforceHttps: parseBoolean(process.env.ENFORCE_HTTPS, isProd),
   mongoUri: process.env.MONGO_URI || "mongodb://127.0.0.1:27017/punjab_compliance",
   jwtSecret: validateJwtSecret(),
   corsOrigin: corsOrigins,

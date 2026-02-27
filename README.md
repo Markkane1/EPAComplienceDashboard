@@ -36,3 +36,15 @@ npm run start:staging:api
 - Never commit real secrets.
 - Use `apps/api/.env.staging.example` and `apps/web/.env.staging.example` as templates.
 - Configure Resend via `RESEND_API_KEY`, `EMAIL_FROM`, and `EMAIL_FROM_NAME` in API env.
+
+## Production (Oracle Free Tier VM)
+
+Use the full deployment guide in [ORACLE_DEPLOYMENT.md](./ORACLE_DEPLOYMENT.md).
+
+Quick commands:
+
+```bash
+npm run setup:production
+npm run build:production
+npm run deploy:oracle
+```

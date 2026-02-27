@@ -20,7 +20,7 @@ export const createServer = ({ authController, applicationController, documentCo
   const app = express();
 
   // HTTPS/TLS enforcement in production
-  if (config.nodeEnv === 'production') {
+  if (config.nodeEnv === 'production' && config.enforceHttps) {
     app.use((req, res, next) => {
       if (req.header('x-forwarded-proto') !== 'https') {
         return res.redirect(`https://${req.header('host')}${req.url}`);
