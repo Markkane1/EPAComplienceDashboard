@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node --watch src/main.js",
     "start": "node src/main.js",
     "lint": "node -e \"process.exit(0)\"",
     "seed:admin-password": "node scripts/seed-admin-password.js",
