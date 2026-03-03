@@ -5,7 +5,7 @@ export const createHearingOrderDocument = async ({
   applicationDocumentRepository,
   fileStorage,
 }) => {
-  const relativePath = fileStorage.relativeToUploadDir(file.path);
+  const relativePath = await fileStorage.saveUploadedFile(file, applicationId);
   const fileName = `Hearing Order: ${file.originalname}`;
   return applicationDocumentRepository.createDocument({
     application_id: applicationId,

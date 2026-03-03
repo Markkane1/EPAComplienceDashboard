@@ -39,7 +39,7 @@ export class UploadApplicationDocumentUseCase {
       }
     }
 
-    const relativePath = this.fileStorage.relativeToUploadDir(file.path);
+    const relativePath = await this.fileStorage.saveUploadedFile(file, id);
     const fileName = doc_type ? `${doc_type}: ${file.originalname}` : file.originalname;
 
     const doc = await this.documentRepository.createDocument({
