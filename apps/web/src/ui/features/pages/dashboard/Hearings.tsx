@@ -222,7 +222,7 @@ const Hearings = () => {
 
   return (
     <DashboardLayout>
-      <div className="p-8">
+      <div className="p-4 sm:p-6 lg:p-8">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">Hearings</h1>
           {canSchedule && (

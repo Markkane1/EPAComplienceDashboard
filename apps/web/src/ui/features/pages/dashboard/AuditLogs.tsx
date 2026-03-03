@@ -45,7 +45,7 @@ const AuditLogs = () => {
 
   return (
     <DashboardLayout>
-      <div className="p-8 space-y-6">
+      <div className="p-4 sm:p-6 lg:p-8 space-y-6">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-bold">Audit Logs</h1>

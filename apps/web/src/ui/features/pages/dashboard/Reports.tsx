@@ -136,7 +136,7 @@ const Reports = () => {
 
   return (
     <DashboardLayout>
-      <div className="p-8 space-y-6">
+      <div className="p-4 sm:p-6 lg:p-8 space-y-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <h1 className="text-2xl font-bold">Reports</h1>
           <div className="flex flex-wrap items-center gap-3">
