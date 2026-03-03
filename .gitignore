@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 apps/api/uploads
+docs/
 *.local
 .env
 .env.*
